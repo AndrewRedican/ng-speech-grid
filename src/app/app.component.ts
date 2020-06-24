@@ -3,6 +3,9 @@ import { Observable, of } from 'rxjs';
 import { GridApi, ColumnApi, ColDef } from 'ag-grid-community';
 import { AppService, Station } from './app.service';
 import { AppSpeechRecognitionService } from './app.speech-recognition.service';
+import { Store, select } from '@ngrx/store';
+import { State, AppState } from './app.reducer';
+import { loadData } from './app.actions';
 
 @Component({
   selector: 'app-root',
@@ -13,9 +16,7 @@ export class AppComponent {
   title = 'stations';
   gridApi: GridApi;
   columnApi: ColumnApi;
-
   defaultColDef: ColDef = { sortable: true, filter: true, resizable: true };
-
   columnDefs: ColDef[] = [
     { headerName: 'ID', field: 'stationId', checkboxSelection: true },
     { headerName: 'Code', field: 'stationCode' },
@@ -24,11 +25,13 @@ export class AppComponent {
     { headerName: 'Latitude', field: 'stationLatitude' },
     { headerName: 'Longitude', field: 'stationLongitude' }
   ];
-
   rowData$: Observable<Station[]> = of([]);
+  loading$: Observable<boolean>;
 
-  constructor(private service: AppService, private speech: AppSpeechRecognitionService) {
+  constructor(private store: Store<AppState>, private service: AppService, private speech: AppSpeechRecognitionService) {
     this.speech.startOneCommandArtyom();
+    this.loading$ = store.pipe(select('app', 'loading'));
+    this.rowData$ = store.pipe(select('app', 'stations'));
   }
 
   getSelectedRows() {
@@ -41,7 +44,7 @@ export class AppComponent {
   onGridReady(params) {
     this.gridApi = params.api;
     this.columnApi = params.columnApi;
-    this.rowData$ = this.service.getAllStations();
+    this.store.dispatch(loadData());
   }
 
   onFirstDataRendered() {
