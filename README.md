@@ -4,26 +4,20 @@
 
 This is a demo of AG-Grid Community version implementation on an Angular Application (version 9.1.9) with speech recognition commands, displaying data from the [Irish Rail API](http://api.irishrail.ie/realtime/index.htm?realtime_irishrail).
 
-## Development server
+## Run Demo Locally
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+1. On Windows, open chrome with security disabled.
+```
+  "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" --disable-web-security --disable-gpu --user-data-dir=~/chromeTemp
+```
 
-## Code scaffolding
+2. Go to root directory of project an run
+```
+  npm run start
+```
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+3. Go to `http://localhost:4200/` on security-disabled chrome.
 
-## Build
+## Voice Commands
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+At the moment, it understands `reload` and `refresh` to call api again to get the latest information.

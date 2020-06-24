@@ -4,7 +4,7 @@ import { GridApi, ColumnApi, ColDef } from 'ag-grid-community';
 import { AppService, Station } from './app.service';
 import { AppSpeechRecognitionService } from './app.speech-recognition.service';
 import { Store, select } from '@ngrx/store';
-import { State, AppState } from './app.reducer';
+import { AppState } from './app.reducer';
 import { loadData } from './app.actions';
 
 @Component({
@@ -27,11 +27,13 @@ export class AppComponent {
   ];
   rowData$: Observable<Station[]> = of([]);
   loading$: Observable<boolean>;
+  lastUpdated$: Observable<string>;
 
   constructor(private store: Store<AppState>, private service: AppService, private speech: AppSpeechRecognitionService) {
     this.speech.startOneCommandArtyom();
     this.loading$ = store.pipe(select('app', 'loading'));
     this.rowData$ = store.pipe(select('app', 'stations'));
+    this.lastUpdated$ = store.pipe(select('app', 'lastUpdated'));
   }
 
   getSelectedRows() {

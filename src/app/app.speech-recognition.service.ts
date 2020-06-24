@@ -1,38 +1,43 @@
 import { Injectable } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { loadData } from './app.actions';
 // @ts-ignore
 import Artyom from "artyom.js";
 
 @Injectable({ providedIn: 'root' })
 export class AppSpeechRecognitionService {
-  constructor() { }
+  artyom;
+
+  constructor(private store: Store) {
+    this.artyom = new Artyom();
+    this.startOneCommandArtyom = this.startOneCommandArtyom.bind(this)
+  }
+
+  reloadGrid = {
+    indexes: ['reload', 'refresh'],
+    action: () => {
+      this.store.dispatch(loadData());
+      this.artyom.say("Data reloaded");
+    }
+  }
 
   startOneCommandArtyom() {
-    const artyom = new Artyom();
 
-    // Add a single command
-    var reloadGrid = {
-      indexes: ["reload"],
-      action: function () {
-        // this.dispatch()
-        console.log('reload')
-      }
-    };
+    // reloadGrid.bind(this);
 
-    artyom.addCommands(reloadGrid);
+    this.artyom.addCommands(this.reloadGrid);
 
-    artyom.fatality(); // use this to stop any of
+    this.artyom.fatality(); // use this to stop any of
 
-    setTimeout(function () {
+    setTimeout(() => {
       // if you use artyom.fatality , wait 250 ms to initialize again.
-      artyom.initialize({
-        lang: "en-GB",// A lot of languages are supported. Read the docs !
-        continuous: false,// recognize 1 command and stop listening !
-        listen: true, // Start recognizing
-        debug: true, // Show everything in the console
-        speed: 1 // talk normally
-      }).then(function () {
-        console.log("Ready to work !");
-      });
+      this.artyom.initialize({
+        lang: "en-GB",
+        continuous: true,
+        listen: true,
+        debug: true,
+        speed: 1
+      }).then(() => console.log('Listening to voice commands'));
     }, 250);
   }
 }

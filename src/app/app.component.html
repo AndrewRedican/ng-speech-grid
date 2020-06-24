@@ -1,4 +1,14 @@
-<h1>Train Stations</h1>
+<div style="height: 50px;">
+  <span style="float: left; font-size: xx-large; font-weight: bolder;">
+    Train Stations
+  </span>
+  <span style="float: right;">
+    {{ (loading$ | async) ? 'Loading...' : '' }}
+  </span>
+  <span style="float: right;">
+    Last Updated: {{ lastUpdated$ | async }}
+  </span>
+</div>
 <ag-grid-angular #agGrid style="width: calc(100vw - 20px); height: 500px;" class="ag-theme-alpine"
   [rowData]="rowData$ | async" [defaultColDef]="defaultColDef" [columnDefs]="columnDefs" rowSelection="multiple"
   (gridReady)="onGridReady($event)" (firstDataRendered)="onFirstDataRendered()" (gridSizeChanged)="onGridSizeChanged()">
