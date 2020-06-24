@@ -2,7 +2,7 @@
 
 ## Overview
 
-This is a demo of AG-Grid Community version implementation on an Angular Application (version 9.1.9) with speech recognition commands.
+This is a demo of AG-Grid Community version implementation on an Angular Application (version 9.1.9) with speech recognition commands, displaying data from the [Irish Rail API](http://api.irishrail.ie/realtime/index.htm?realtime_irishrail).
 
 ## Development server
 
