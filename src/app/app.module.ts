@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AgGridModule } from 'ag-grid-angular';
 import { AppService } from './app.service';
+import { AppSpeechRecognitionService } from './app.speech-recognition.service';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,7 @@ import { AppService } from './app.service';
     HttpClientModule,
     AgGridModule.withComponents([])
   ],
-  providers: [AppService],
+  providers: [AppService, AppSpeechRecognitionService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

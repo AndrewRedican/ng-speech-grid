@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { GridApi, ColumnApi, ColDef } from 'ag-grid-community';
 import { AppService, Station } from './app.service';
+import { AppSpeechRecognitionService } from './app.speech-recognition.service';
 
 @Component({
   selector: 'app-root',
@@ -26,7 +27,9 @@ export class AppComponent {
 
   rowData$: Observable<Station[]> = of([]);
 
-  constructor(private service: AppService) { }
+  constructor(private service: AppService, private speech: AppSpeechRecognitionService) {
+    this.speech.startOneCommandArtyom();
+  }
 
   getSelectedRows() {
     const selectedNodes = this.gridApi.getSelectedNodes();
